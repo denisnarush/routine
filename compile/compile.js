@@ -81,11 +81,10 @@ function makeHTML(source, cls) {
 function makeLESS(componets) {
 
     var str = '';
+    str += '@import "../less/palette.less";\n';
+    str += '@import "../less/layout.less";\n';
     for (key in componets){
-        
-        
-        str += '@import "../less/palette.less";\n';
-        str += '@import "../less/layout.less";\n';
+
         try {
             fs.accessSync('../ui-components/' + key + '/' + key + '.less', fs.F_OK)
             // Do something
