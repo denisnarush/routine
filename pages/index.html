@@ -4,6 +4,7 @@
 <head class="b-head head">
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet/less" type="text/css" href="index.less">
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.6.1/less.min.js"></script>
     <title class="b-title title">Routine</title>
@@ -11,33 +12,18 @@
 
 <body class="b-body body">
     <header class="b-header header">
-        <div class="b-title header-title">Gridzilla<b>.</b></div>
-        <div class="b-search header-search">
-            <form action='/search' method='get'>
-                <input type='search' placeholder='Enter your search…' name='search'>
-                <button type='submit'>Ok</button>
-            </form>
-        </div>
+        <h1 class="b-logo header-logo"><b>B</b>INO</h1>
+        <nav class="b-nav header-nav"><a class="b-link header-nav-link" href="/" data-state="is-active">home</a><a class="b-link header-nav-link" href="/about">about us</a><a class="b-link header-nav-link" href="/portfolio">portfolio</a><a class="b-link header-nav-link" href="/pricing">pricing</a>
+            <a
+                class="b-link header-nav-link" href="/team">team</a><a class="b-link header-nav-link" href="/blog">blog</a><a class="b-link header-nav-link" href="/contact">contact</a></nav>
     </header>
-    <div class="b-nav nav">
-        <nav>
-            <a href='/' data-state='is-active'>Home</a>
-            <a href='/about'>About</a>
-            <a href='/blog'>Blog</a>
-            <a href='/contact'>Contact</a>
-        </nav>
-    </div>
-    <div class="b-article article">
-        <header class="b-header article-header">
-            <div class="b-title b-title__little article-header-title">New Commit</div>
-        </header>
-        <div class="b-content article-content">Today i create awesome compiler! Pealse enjoy</div>
-    </div>
-    <div class="b-article article">
-        <header class="b-header article-header">
-            <div class="b-title b-title__small article-header-title">Sponsor comming.</div>
-        </header>
-        <div class="b-content article-content">This week was super hard. But i have good moments. Have fun!</div>
+    <div class="b-slider slider">
+        <div class="b-slide slider-slide">
+            <div class="b-slogan slider-slide-slogan">Our Clients Are Our First Priority</div>
+            <div class="b-caption slider-slide-caption">WELCOME TO BINO</div>
+            <div class="b-section slider-slide-section">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
+                book.</div>
+        </div>
     </div>
 </body>
 

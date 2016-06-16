@@ -7,9 +7,11 @@ var uiComponents = {};
 fs.readFile('../pages/index.tpl.json', 'utf8', function (err, data) {
     if (err) {
         throw err;
+        return false;
     }
 
     var config = JSON.parse(data);
+
     var html = '';
     var less = '';
 
@@ -55,8 +57,14 @@ function makeHTML(source, cls) {
     }
 
     var o = {};
-    var key = 'string';
+    var key = '';
     var str = '';
+    
+    
+    var className = '';
+    var attributes = '';
+    
+    
     cls = cls || '';
 
     for (c in source) {
@@ -69,8 +77,14 @@ function makeHTML(source, cls) {
         if (cls && cls.substr(cls.length - 1) !== '-') {
             cls = cls + '-';
         }
+        
+        className = ' class="b-'+ key + ' ' + (o.mod ? 'b-' + key + '__' + o.mod + ' ' : '') + cls + key +'"';
+        attributes = ' ';
+        for (index in o.attr) {
+            attributes += ' ' + index + '="' + o.attr[index] + '"';
+        }
 
-        str += '<' + (o.tag || 'div') + ' class="b-'+ key + ' ' + (o.mod ? 'b-' + key + '__' + o.mod + ' ' : '') + cls + key +'">' + (o.text || '');
+        str += '<' + (o.tag || 'div') + className + attributes + '>' + (o.text || '');
         str += uiComponents[key].trim();
 
         str += makeHTML(o[key], cls + key);
@@ -81,14 +95,14 @@ function makeHTML(source, cls) {
 function makeLESS(componets) {
 
     var str = '';
+
     str += '@import "../less/palette.less";\n';
     str += '@import "../less/layout.less";\n';
+
     for (key in componets){
 
         try {
-            fs.accessSync('../ui-components/' + key + '/' + key + '.less', fs.F_OK)
-            // Do something
-
+            fs.accessSync('../ui-components/' + key + '/' + key + '.less', fs.F_OK);
             str += '@import "../ui-components/' + key + '/' + key + '";\n';
         } catch (e) {
             // It isn't accessible

@@ -1,8 +1,8 @@
 nav{
-    border-top: 1px solid #ececec;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-between;
 
     @media (max-width: 425px) {
         justify-content: space-around;
@@ -10,21 +10,18 @@ nav{
 
     a{
         display: block;
+        color: #f4f5f9;
+        font-family: Open Sans;
+        padding: 19px 0;
         font-size: 14px;
         text-transform: uppercase;
         white-space: nowrap;
-        padding: .75rem 0 .75rem 1rem;
-        margin-top: -1px;
+        text-decoration: none;
 
-        &:after{
-            content: '';
-            font-size: 17px;
-            margin-left: 1rem;
-            border-right: 1px solid #ececec;
-        }
         &[data-state='is-active']{
-            color: @primaryTextColor;
-            border-top: 1px solid #f03c3c;
+            color: #e74c3c;
+            font-weight: 700;
+            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAABCAYAAACltkzpAAAAEElEQVQIW2N87mPzn2EIAQCpUAJwpWZUsAAAAABJRU5ErkJggg==) bottom center repeat-x;
         }
     }
 }

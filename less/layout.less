@@ -19,32 +19,14 @@
 html{
     font-family: 'Helvetica';
     height: 100%;
+    background: url(/images/background.png) top center no-repeat;
 }
 body{
     box-sizing: border-box;
 
     .flex-column();
 
-    padding: 10px;
-    margin: 0;
-
     min-height: 100%;
-}
-
-a{
-    &:link{
-        color: @accentColor;
-        text-decoration: none;
-    }
-    &:visited{
-        color: @lightPrimaryColor;
-    }
-    &:hover{
-        color: @primaryTextColor;
-    }
-    &:active{
-        color: @dividerColor;
-    }
 }
 
 input{
@@ -66,20 +48,23 @@ button{
 /* LAYOUT */
 
 .header{
+    max-width: 1170px;
+    margin: 0 auto;
     .flex-row-middle();
     flex-wrap: wrap;
+    justify-content: space-between;
 
-    &-title{
-        flex: 1 0 140px; /* logo/label minimum width */
+    &-logo{
+        flex: 0 1 auto;
+        margin: 40px 0;
     }
-    &-search{
-        flex: 1 1 170px; /* form minimum width */
-        padding: 5px 0;
-        text-align: center;
+    &-nav{
+        flex: 1 1 auto;
+        margin: -3px 0 0 0;
+        max-width: 729px;
     }
 }
-
-.nav{
-    margin: 1rem 0;
+.slider{
+    flex: 1 0 auto;
 }
 /* -LAYOUT */
