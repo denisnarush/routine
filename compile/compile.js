@@ -80,6 +80,7 @@ function makeHTML(source, cls) {
         
         className = ' class="b-'+ key + ' ' + (o.mod ? 'b-' + key + '__' + o.mod + ' ' : '') + cls + key +'"';
         attributes = ' ';
+
         for (index in o.attr) {
             attributes += ' ' + index + '="' + o.attr[index] + '"';
         }
