@@ -41,9 +41,10 @@ function getTemplates(source) {
             uiComponents[key] = ' ';
             try {
                 uiComponents[key] = fs.readFileSync('../ui-components/' + key + '/' + key + '.tpl', 'utf8');
+                uiComponents[key] = uiComponents[key].trim();
             } catch (e) {
 
-                console.log('\x1b[33m%s\x1b[0m: ', key+ ' don\'t have template file (ui-components/' + key + '/' + key + '.tpl)');
+                console.log('tpl: ' +key+ ' don\'t have template file (ui-components/' + key + '/' + key + '.tpl)');
             }
         }
 
@@ -85,10 +86,36 @@ function makeHTML(source, cls) {
             attributes += ' ' + index + '="' + o.attr[index] + '"';
         }
 
-        str += '<' + (o.tag || 'div') + className + attributes + '>' + (o.text || '');
-        str += uiComponents[key].trim();
+        str += '<' + (o.tag || 'div') + className + attributes + '>';
 
-        str += makeHTML(o[key], cls + key);
+
+        o.text = (o.text || '').trim();
+        if (o.before === true) {
+            str += makeHTML(o[key], cls + key);
+        }
+
+        if (uiComponents[key].match(new RegExp('{{text}}'))) {
+            str += uiComponents[key].replace('{{text}}', o.text.trim());
+        } else {
+            str += (o.text + uiComponents[key]).trim();
+        }
+
+        if (o.before !== true) {
+            str += makeHTML(o[key], cls + key);
+        }
+
+        if (o.tag === 'body') {
+            for (a in uiComponents) {
+                try {
+                    fs.accessSync('../ui-components/' + a + '/' + a + '.js', fs.F_OK);
+                    str += '<script type="text/javascript" src="../ui-components/' + a + '/' + a + '.js"></script>';
+                } catch (e) {
+                    // It isn't accessible
+                    console.log('js: ' +a+ ' don\'t have js file (ui-components/' + a + '/' + a + '.js)');
+                }
+            }
+        }
+
         str += '</' + (o.tag || 'div') + '>';
     }
     return str
@@ -107,7 +134,7 @@ function makeLESS(componets) {
             str += '@import "../ui-components/' + key + '/' + key + '";\n';
         } catch (e) {
             // It isn't accessible
-            console.log('\x1b[36m%s\x1b[0m', key+ ' don\'t have less file (ui-components/' + key + '/' + key + '.less)');
+            console.log('less: '+key+ ' don\'t have less file (ui-components/' + key + '/' + key + '.less)');
         }
         
     }
