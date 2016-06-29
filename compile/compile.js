@@ -1,37 +1,22 @@
+/*global require, console*/
 var fs = require('fs');
 var beautify = require('js-beautify').html;
 
 var beautifyOptions = {};
 var uiComponents = {};
 
-fs.readFile('../pages/index.tpl.json', 'utf8', function (err, data) {
-    if (err) {
-        throw err;
-        return false;
-    }
 
-    var config = JSON.parse(data);
-
-    var html = '';
-    var less = '';
-
-    getTemplates(config);
-    html = makeHTML(config);
-    less = makeLESS(uiComponents);
-    html = '<!DOCTYPE html><html>' + html + '</html>';
-    html = beautify(html, beautifyOptions);
-
-    fs.writeFileSync('../pages/index.html', html , 'utf8');
-    fs.writeFileSync('../pages/index.less', less , 'utf8');
-});
 
 function getTemplates(source) {
+    'use strict';
+
     if (!Array.isArray(source) && !source.length) {
-        return
+        return false;
     }
 
     var o = {};
     var key = 'string';
+    var c;
 
     for (c in source) {
         o = source[c];
@@ -44,7 +29,7 @@ function getTemplates(source) {
                 uiComponents[key] = uiComponents[key].trim();
             } catch (e) {
 
-                console.log('tpl: ' +key+ ' don\'t have template file (ui-components/' + key + '/' + key + '.tpl)');
+                console.log('tpl: ' + key + ' don\'t have template file (ui-components/' + key + '/' + key + '.tpl)');
             }
         }
 
@@ -52,34 +37,38 @@ function getTemplates(source) {
     }
 }
 function makeHTML(source, cls) {
+    'use strict';
 
     if (!Array.isArray(source) && !source.length) {
-        return
+        return false;
     }
 
     var o = {};
+    var a;
+    var c;
     var key = '';
     var str = '';
-    
-    
+
+
     var className = '';
     var attributes = '';
-    
-    
+    var index;
+
+
     cls = cls || '';
 
     for (c in source) {
         o = source[c];
         key = Object.keys(o)[0];
 
-        cls = (cls === 'body' ? '': cls);
-        cls = (cls === 'head' ? '': cls);
-    
+        cls = (cls === 'body' ? '' : cls);
+        cls = (cls === 'head' ? '' : cls);
+
         if (cls && cls.substr(cls.length - 1) !== '-') {
             cls = cls + '-';
         }
-        
-        className = ' class="b-'+ key + ' ' + (o.mod ? 'b-' + key + '__' + o.mod + ' ' : '') + cls + key +'"';
+
+        className = ' class="b-' + key + ' ' + (o.mod ? 'b-' + key + '__' + o.mod + ' ' : '') + cls + key + '"';
         attributes = ' ';
 
         for (index in o.attr) {
@@ -111,33 +100,60 @@ function makeHTML(source, cls) {
                     str += '<script type="text/javascript" src="../ui-components/' + a + '/' + a + '.js"></script>';
                 } catch (e) {
                     // It isn't accessible
-                    console.log('js: ' +a+ ' don\'t have js file (ui-components/' + a + '/' + a + '.js)');
+                    console.log('js: ' + a + ' don\'t have js file (ui-components/' + a + '/' + a + '.js)');
                 }
             }
         }
 
         str += '</' + (o.tag || 'div') + '>';
     }
-    return str
+    return str;
 }
 function makeLESS(componets) {
+    'use strict';
 
     var str = '';
+    var key;
 
-    str += '@import "../less/palette.less";\n';
-    str += '@import "../less/layout.less";\n';
-
-    for (key in componets){
+    for (key in componets) {
 
         try {
             fs.accessSync('../ui-components/' + key + '/' + key + '.less', fs.F_OK);
             str += '@import "../ui-components/' + key + '/' + key + '";\n';
         } catch (e) {
             // It isn't accessible
-            console.log('less: '+key+ ' don\'t have less file (ui-components/' + key + '/' + key + '.less)');
+            console.log('less: ' + key + ' don\'t have less file (ui-components/' + key + '/' + key + '.less)');
         }
         
+        str += '@import "../less/layout.less";\n';
+
     }
-    
+
     return str;
 }
+
+
+
+
+
+fs.readFile('../pages/index.tpl.json', 'utf8', function (err, data) {
+    'use strict';
+
+    if (err) {
+        throw err;
+    }
+
+    var config = JSON.parse(data);
+
+    var html = '';
+    var less = '';
+
+    getTemplates(config);
+    html = makeHTML(config);
+    less = makeLESS(uiComponents);
+    html = '<!DOCTYPE html><html>' + html + '</html>';
+    html = beautify(html, beautifyOptions);
+
+    fs.writeFileSync('../pages/index.html', html, 'utf8');
+    fs.writeFileSync('../pages/index.less', less, 'utf8');
+});

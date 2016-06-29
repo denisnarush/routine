@@ -1,10 +1,11 @@
+/*global module, require*/
 module.exports = function (grunt) {
     'use strict';
 
     grunt.initConfig({
 
         less: {
-            dev: {files: {'style.css': 'less/result.less'}}
+            dev: {files: {'pages/style.css': 'pages/index.less'}}
         },
 
         autoprefixer: {
@@ -19,15 +20,47 @@ module.exports = function (grunt) {
         },
 
         watch: {
-            files: ['less/**/*.less'],
-            tasks: ['less', 'autoprefixer']
+            'svg': {
+                files: ['images/*.svg'],
+                tasks: ['svgmin']
+            },
+            'ui': {
+                files: ['ui-components/**/*.less', 'less/layout.less'],
+                tasks: ['less']
+            }
+        },
+        
+        svgmin: {
+            options: {
+                plugins: [
+                    {
+                        removeUselessStrokeAndFill: false
+                    }, {
+                        removeAttrs: {
+//                            attrs: ['xmlns']
+                        }
+                    }
+                ]
+            },
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: 'images/',
+                    src: ['*.svg'],
+                    dest: 'images/svg-min/',
+                    ext: '.min.svg'
+                }]
+            }
         }
+
 
     });
 
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-autoprefixer');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-svgmin');
 
-    grunt.registerTask('default', ['less',]);
+    grunt.registerTask('default', ['less']);
+    grunt.registerTask('svg', ['svgmin']);
 };
