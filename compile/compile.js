@@ -124,10 +124,10 @@ function makeLESS(componets) {
             // It isn't accessible
             console.log('less: ' + key + ' don\'t have less file (ui-components/' + key + '/' + key + '.less)');
         }
-        
-        str += '@import "../less/layout.less";\n';
 
     }
+    
+    str += '@import "../less/layout.less";\n';
 
     return str;
 }
