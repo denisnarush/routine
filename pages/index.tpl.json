@@ -102,6 +102,7 @@
                                         "text": "Our Clients Are Our First Priority"
                                     }
                                 ],
+                                "mod": "decor",
                                 "text": "WELCOME TO BINO",
                                 "before": true
                             },
@@ -138,6 +139,86 @@
                         "tag": "a",
                         "attr": {
                             "href": "#next" 
+                        }
+                    }
+                ]
+            },
+            {
+                "section": [
+                    {
+                        "badge": [
+                            {
+                                "icon": [],
+                                "tag": "i",
+                                "mod": "glasses"
+                            },
+                            {
+                                "caption": [],
+                                "text": "SLEEK DESIGN"
+                            }
+                        ],
+                        "text": "Lorem Ipsum is simply dummy text of the printing and typesetting let. Lorem Ipsum has been the industry.",
+                        "before": true,
+                        "tag": "a",
+                        "attr": {
+                            "href": "#"
+                        }
+                    },
+                    {
+                        "badge": [
+                            {
+                                "icon": [],
+                                "tag": "i",
+                                "mod": "heart"
+                            },
+                            {
+                                "caption": [],
+                                "text": "CLEAN CODE"
+                            }
+                        ],
+                        "text": "Lorem Ipsum is simply dummy text of the printing and typesetting let. Lorem Ipsum has been the industry.",
+                        "before": true,
+                        "tag": "a",
+                        "attr": {
+                            "href": "#"
+                        }
+                    },
+                    {
+                        "badge": [
+                            {
+                                "icon": [],
+                                "tag": "i",
+                                "mod": "lightbulb"
+                            },
+                            {
+                                "caption": [],
+                                "text": "CREATIVE IDEAS"
+                            }
+                        ],
+                        "text": "Lorem Ipsum is simply dummy text of the printing and typesetting let. Lorem Ipsum has been the industry.",
+                        "before": true,
+                        "tag": "a",
+                        "attr": {
+                            "href": "#"
+                        }
+                    },
+                    {
+                        "badge": [
+                            {
+                                "icon": [],
+                                "tag": "i",
+                                "mod": "dialog"
+                            },
+                            {
+                                "caption": [],
+                                "text": "FREE SUPPORT"
+                            }
+                        ],
+                        "text": "Lorem Ipsum is simply dummy text of the printing and typesetting let. Lorem Ipsum has been the industry.",
+                        "before": true,
+                        "tag": "a",
+                        "attr": {
+                            "href": "#"
                         }
                     }
                 ]

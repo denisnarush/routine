@@ -1,0 +1,42 @@
+.b-badge{
+    color: #999999;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 20px;
+
+    &:hover{
+        .b-icon{
+            border-color: #e74c3c;
+            transform: rotate(45deg);
+            transform-origin: center;
+            &:before{
+                transform: rotate(-45deg);
+                transform-origin: center;
+            }
+        }
+        
+        .b-caption{
+            color: #e74c3c;
+        }
+    }
+    
+    .b-icon{
+        transition-property: border-color, transform;
+        transition-duration: .5s;
+        
+        width: 73px;
+        height: 73px;
+        
+        &:before{
+            transition-property: transform;
+            transition-duration: .5s;
+        }
+    }
+    .b-caption{
+        color: #6a6a6a;
+        font-size: 18px;
+        font-weight: 600;
+    }
+}
