@@ -1,159 +1,171 @@
-/*global require, console*/
+/*
+ v1.1.0;
+*/
+
+/*global require, console, process*/
 var fs = require('fs');
 var beautify = require('js-beautify').html;
+var html = '';
+var blocks = {};
 
-var beautifyOptions = {};
-var uiComponents = {};
+var FgRed = "\x1b[31m ";
+var FgGreen = "\x1b[32m ";
 
-
-
-function getTemplates(source) {
+function LOG() {
     'use strict';
 
-    if (!Array.isArray(source) && !source.length) {
+    //    console.log.apply(this, arguments);
+}
+
+console.log(new Date());
+
+function isFileExist(filePath) {
+    'use strict';
+
+    try {
+        fs.lstatSync(filePath).isFile();
+        return true;
+    } catch (error) {
         return false;
     }
 
-    var o = {};
-    var key = 'string';
-    var c;
-
-    for (c in source) {
-        o = source[c];
-        key = Object.keys(o)[0];
-
-        if (!uiComponents[key]) {
-            uiComponents[key] = ' ';
-            try {
-                uiComponents[key] = fs.readFileSync('../ui-components/' + key + '/' + key + '.tpl', 'utf8');
-                uiComponents[key] = uiComponents[key].trim();
-            } catch (e) {
-
-                console.log('tpl: ' + key + ' don\'t have template file (ui-components/' + key + '/' + key + '.tpl)');
-            }
-        }
-
-        getTemplates(o[key]);
-    }
 }
-function makeHTML(source, cls) {
+function readAsJSON(filePath) {
     'use strict';
 
-    if (!Array.isArray(source) && !source.length) {
+    try {
+        return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    } catch (error) {
+        LOG('no such file or directory, open \'' + filePath + '\'');
+    }
+
+}
+
+function checkTagParam(tag) {
+    'use strict';
+
+    if (tag === undefined) {
+        return 'div';
+    }
+
+    if (tag === false) {
         return false;
     }
 
-    var o = {};
-    var a;
-    var c;
-    var key = '';
-    var str = '';
+    if (typeof tag === 'string' && !!tag) {
+        return tag;
+    }
+}
+
+function readContent(content, block) {
+    'use strict';
+
+    if (!content) {
+        return;
+    }
+
+    html += '\n';
+
+    content.forEach(function (index) {
+        var tag = checkTagParam(index.tag);
+
+        if (tag) {
 
 
-    var className = '';
-    var attributes = '';
-    var index;
-
-
-    cls = cls || '';
-
-    for (c in source) {
-        o = source[c];
-        key = Object.keys(o)[0];
-
-        cls = (cls === 'body' ? '' : cls);
-        cls = (cls === 'head' ? '' : cls);
-
-        if (cls && cls.substr(cls.length - 1) !== '-') {
-            cls = cls + '-';
-        }
-
-        className = ' class="b-' + key + ' ' + (o.mod ? 'b-' + key + '__' + o.mod + ' ' : '') + cls + key + '"';
-        attributes = ' ';
-
-        for (index in o.attr) {
-            attributes += ' ' + index + '="' + o.attr[index] + '"';
-        }
-
-        str += '<' + (o.tag || 'div') + className + attributes + '>';
-
-
-        o.text = (o.text || '').trim();
-        if (o.before === true) {
-            str += makeHTML(o[key], cls + key);
-        }
-
-        if (uiComponents[key].match(new RegExp('{{text}}'))) {
-            str += uiComponents[key].replace('{{text}}', o.text.trim());
-        } else {
-            str += (o.text + uiComponents[key]).trim();
-        }
-
-        if (o.before !== true) {
-            str += makeHTML(o[key], cls + key);
-        }
-
-        if (o.tag === 'body') {
-            for (a in uiComponents) {
-                try {
-                    fs.accessSync('../ui-components/' + a + '/' + a + '.js', fs.F_OK);
-                    str += '<script type="text/javascript" src="../ui-components/' + a + '/' + a + '.js"></script>';
-                } catch (e) {
-                    // It isn't accessible
-                    console.log('js: ' + a + ' don\'t have js file (ui-components/' + a + '/' + a + '.js)');
-                }
+            // feeel block paths
+            if (index.block) {
+                blocks[index.block] = blocks[index.block] || {
+                    css: index.block + '/' + index.block + '.less',
+                    js: index.block + '/' + index.block + '.js'
+                };
             }
+
+            if (block && index.elem) {
+                blocks[block + '__' + index.elem] = blocks[block + '__' + index.elem] || {
+                    css: block + '/' + '__' + index.elem + '/' + block + '__' + index.elem + '.less',
+                    js: block + '/' + '__' + index.elem + '/' + block + '__' + index.elem + '.js'
+                };
+            }
+
+            if (index.mods !== undefined) {
+                Object.keys(index.mods).forEach(function (i) {
+                    blocks[(index.block || (block ? block + '__' + index.elem : false)) + '_' + i + (typeof index.mods[i] === 'string' ? '_' + index.mods[i] : '')] = blocks[(index.block || (block ? block + '__' + index.elem : false)) + '_' + i + (typeof index.mods[i] === 'string' ? '_' + index.mods[i] : '')] || {
+                        css:  (index.block || block) + '/' + (index.elem ? '__' + index.elem + '/' : '') + '_' + i + '/' + (index.block || (block ? block + '__' + index.elem : false)) + '_' + i + (typeof index.mods[i] === 'string' ? '_' + index.mods[i] : '') + '.less',
+                        js:  (index.block || block) + '/' + (index.elem ? '__' + index.elem + '/' : '') + '_' + i + '/' + (index.block || (block ? block + '__' + index.elem : false)) + '_' + i + (typeof index.mods[i] === 'string' ? '_' + index.mods[i] : '') + '.js'
+                    };
+                });
+            }
+            // -feeel block paths
+
+            // class
+            html += '<' + tag + ' class="' + (index.block || (block ? block + '__' + index.elem : false));
+
+            // mods
+            if (index.mods !== undefined) {
+                Object.keys(index.mods).forEach(function (i) {
+                    html += ' ' + (index.block || (block ? block + '__' + index.elem : false)) + '_' + i + (typeof index.mods[i] === 'string' ? '_' + index.mods[i] : '');
+                });
+            }
+
+            // close class attr
+            html +=  '"';
+
+            // attrs
+            if (index.attrs !== undefined) {
+                Object.keys(index.attrs).forEach(function (i) {
+                    html += ' ' + i + '="' + index.attrs[i] + '"';
+                });
+            }
+
+            html += '>';
         }
 
-        str += '</' + (o.tag || 'div') + '>';
-    }
-    return str;
-}
-function makeLESS(componets) {
-    'use strict';
+        html += (index.html || index.text || '');
 
-    var str = '';
-    var key;
+        readContent(index.content, index.block);
 
-    for (key in componets) {
-
-        try {
-            fs.accessSync('../ui-components/' + key + '/' + key + '.less', fs.F_OK);
-            str += '@import "../ui-components/' + key + '/' + key + '";\n';
-        } catch (e) {
-            // It isn't accessible
-            console.log('less: ' + key + ' don\'t have less file (ui-components/' + key + '/' + key + '.less)');
+        // close tag
+        if (tag) {
+            html += '</' + tag + '>\n';
         }
-
-    }
-    
-    str += '@import "../less/layout.less";\n';
-
-    return str;
+    });
 }
 
-
-
-
-
-fs.readFile('../pages/index.tpl.json', 'utf8', function (err, data) {
+process.argv.forEach(function (index) {
     'use strict';
 
-    if (err) {
-        throw err;
+    if (index.indexOf('.json') === index.length - 5) {
+        var pageJSON = readAsJSON('./' + index);
+
+        blocks = {};
+
+        html = '<!doctype html>\n';
+        html += '<html>\n';
+        html += '    <head>\n';
+        html += '        <title>' + pageJSON.title + '</title>\n';
+        html += '    </head>\n';
+        html += '    <body>\n';
+        readContent(pageJSON.content);
+        html += '    </body>\n';
+        html += '</html>';
+
+        LOG(beautify(html, {}));
+
+        // check files
+        Object.keys(blocks).forEach(function (index) {
+            if (isFileExist('./blocks/' + blocks[index].css)) {
+                console.log(FgGreen, blocks[index].css);
+            } else {
+                console.log(FgRed, blocks[index].css);
+            }
+
+            if (isFileExist('./blocks/' + blocks[index].js)) {
+                console.log(FgGreen, blocks[index].js);
+            } else {
+                console.log(FgRed, blocks[index].js);
+            }
+        });
+
+        console.log('\x1b[0m');
     }
-
-    var config = JSON.parse(data);
-
-    var html = '';
-    var less = '';
-
-    getTemplates(config);
-    html = makeHTML(config);
-    less = makeLESS(uiComponents);
-    html = '<!DOCTYPE html><html>' + html + '</html>';
-    html = beautify(html, beautifyOptions);
-
-    fs.writeFileSync('../pages/index.html', html, 'utf8');
-    fs.writeFileSync('../pages/index.less', less, 'utf8');
 });
