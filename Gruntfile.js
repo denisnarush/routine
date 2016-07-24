@@ -5,7 +5,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
 
         less: {
-            dev: {files: {'pages/style.css': 'pages/index.less'}}
+            dev: {files: {'pages/index.css': 'pages/index.less'}}
         },
 
         autoprefixer: {
@@ -14,7 +14,7 @@ module.exports = function (grunt) {
                     browsers: ['iOS 9']
                 },
                 files: {
-                    'css/app.prefix.css': 'css/app.css'
+                    'css/index.prefix.css': 'css/index.css'
                 }
             }
         },

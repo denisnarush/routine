@@ -1,0 +1,166 @@
+{
+    "block": "page",
+    "title": "home",
+    "head": [
+        { "elem": "css", "url": "home.css"}
+    ],
+    "scripts": [
+        { "elem": "js", "url": "home.js" }
+    ],
+    "content": [
+        {
+            "block": "header",
+            "content": [
+                {
+                    "elem": "logo",
+                    "html": "<b>B</b>INO",
+                    "tag": "h1"
+                },
+                {
+                    "block": "nav",
+                    "content": [
+                        {
+                            "elem": "link",
+                            "text": "home",
+                            "mods": {
+                                "active": true
+                            },
+                            "attrs": {
+                                "href": "/"
+                            },
+                            "tag": "a"
+                        },
+                        {
+                            "elem": "link",
+                            "text": "about us",
+                            "attrs": {
+                                "href": "/about"
+                            },
+                            "tag": "a"
+                        },
+                        {
+                            "elem": "link",
+                            "text": "portfolio",
+                            "attrs": {
+                                "href": "/portfolio"
+                            },
+                            "tag": "a"
+                        },
+                        {
+                            "elem": "link",
+                            "text": "pricing",
+                            "attrs": {
+                                "href": "/pricing"
+                            },
+                            "tag": "a"
+                        },
+                        {
+                            "elem": "link",
+                            "text": "team",
+                            "attrs": {
+                                "href": "/team"
+                            },
+                            "tag": "a"
+                        },
+                        {
+                            "elem": "link",
+                            "text": "blog",
+                            "attrs": {
+                                "href": "/blog"
+                            },
+                            "tag": "a"
+                        },
+                        {
+                            "elem": "link",
+                            "text": "contact",
+                            "attrs": {
+                                "href": "/contact"
+                            },
+                            "tag": "a"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "block": "slider",
+            "content": [
+                {
+                    "elem": "arrow",
+                    "mods": {
+                        "left": true
+                    },
+                    "tag": "i"
+                },
+                {
+                    "elem": "arrow",
+                    "mods": {
+                        "right": true
+                    },
+                    "tag": "i"
+                },
+                {
+                    "elem": "slide",
+                    "mods": {
+                        "empty": true
+                    }
+                },
+                {
+                    "elem": "slide",
+                    "content": [
+                        {
+                            "block": "caption",
+                            "content": [
+                                {
+                                    "elem": "slogan",
+                                    "text": "Our Clients Are Our First Priority"
+                                },
+                                {
+                                    "elem": "text",
+                                    "text": "WELCOME TO BINO",
+                                    "tag": false
+                                },
+                                {
+                                    "elem": "decor",
+                                    "html": "<i></i>"
+                                }
+                            ]
+                        },
+                        {
+                            "block": "note",
+                            "content": [
+                                {
+                                    "elem": "text",
+                                    "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+                                },
+                                {
+                                    "elem": "button",
+                                    "attrs": {
+                                        "href": "#"
+                                    },
+                                    "text": "GET STARTED NOW",
+                                    "tag": "a"
+                                },
+                                {
+                                    "elem": "button",
+                                    "attrs": {
+                                        "href": "#"
+                                    },
+                                    "text": "LEARN MORE",
+                                    "tag": "a"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "elem": "anchor",
+                    "attrs": {
+                        "href": "#next"
+                    },
+                    "tag": "a"
+                }
+            ]
+        }
+    ]
+}
