@@ -5,7 +5,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
 
         less: {
-            dev: {files: {'pages/index.css': 'pages/index.less'}}
+            dev: {files: {'pages/home.css': 'pages/home.less'}}
         },
 
         autoprefixer: {
@@ -26,6 +26,10 @@ module.exports = function (grunt) {
             },
             'ui': {
                 files: ['ui-components/**/*.less', 'less/layout.less'],
+                tasks: ['less']
+            },
+            'blocks': {
+                files: ['blocks/**/*.less'],
                 tasks: ['less']
             }
         },

@@ -10,58 +10,9 @@
 .b-title__small {
   font-size: 1rem;
 }
-.b-body {
-  padding: 0;
-  margin: 0;
-}
-.b-logo {
-  border: 3px solid #f4f5f9;
-  color: #f1ebe7;
-  display: inline-block;
-  font-size: 36px;
-  font-weight: 300;
-  line-height: 1.03;
-  letter-spacing: 0.025em;
-  padding: 0 10px 0 0;
-  position: relative;
-  left: -2px;
-}
-.b-logo b {
-  background: white;
-  color: black;
-  display: inline-block;
-  padding: 4.5px 12px;
-  margin: 0 11px 0 0;
-  mix-blend-mode: screen;
-}
-.b-nav {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-@media (max-width: 425px) {
-  .b-nav {
-    justify-content: space-around;
-  }
-}
-.b-nav a {
-  display: block;
-  color: #f4f5f9;
-  padding: 19px 0;
-  font-size: 14px;
-  text-transform: uppercase;
-  white-space: nowrap;
-  text-decoration: none;
-}
-.b-nav a[data-state='is-active'] {
-  color: #e74c3c;
-  font-weight: 700;
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAABCAYAAACltkzpAAAAEElEQVQIW2N87mPzn2EIAQCpUAJwpWZUsAAAAABJRU5ErkJggg==) bottom center repeat-x;
-}
+
 .b-slider {
-  position: relative;
-  overflow: hidden;
+
 }
 .b-slider > .l,
 .b-slider > .r {
@@ -261,54 +212,7 @@
 }
 /* MIXINS */
 /* MIXINS */
-html {
-  background: url(../images/html.jpg) top center no-repeat;
-  font-family: 'Open Sans';
-  height: 100%;
-}
-body {
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  position: relative;
-  height: 100%;
-  min-height: 100%;
-}
 /* LAYOUT */
-.header {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 0 auto;
-  position: absolute;
-  left: 0;
-  right: 0;
-  max-width: 1170px;
-  z-index: 1;
-}
-.header-logo {
-  flex: 0 1 auto;
-  margin: 40px 0 0 0;
-}
-.header-nav {
-  flex: 1 1 auto;
-  margin: 36px 0 0 0;
-  max-width: 729px;
-}
-.slider {
-  display: flex;
-  flex-direction: row;
-  flex: 1 0 auto;
-  background-image: url(../images/slider-bg.png);
-  background-size: cover;
-  background-position-y: calc(100% - 32px);
-  background-position-x: center;
-  background-repeat: no-repeat;
-  height: 100%;
-  max-height: 1023px;
-}
 .slider-slide {
   display: flex;
   flex-direction: column;

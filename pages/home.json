@@ -2,6 +2,7 @@
     "block": "page",
     "title": "home",
     "head": [
+        { "elem": "css", "url": "https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"},
         { "elem": "css", "url": "home.css"}
     ],
     "scripts": [

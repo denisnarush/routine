@@ -140,9 +140,14 @@ process.argv.forEach(function (index) {
         blocks = {};
 
         html = '<!doctype html>\n';
-        html += '<html>\n';
+        html += '<html lang="en">\n';
         html += '    <head>\n';
         html += '        <title>' + pageJSON.title + '</title>\n';
+        pageJSON.head.forEach(function (index) {
+            if (index.elem === 'css') {
+                html += "<link href='" + index.url + "' rel='stylesheet' type='text/css'>\n";
+            }
+        });
         html += '    </head>\n';
         html += '    <body>\n';
         readContent(pageJSON.content);
@@ -150,10 +155,20 @@ process.argv.forEach(function (index) {
         html += '</html>';
 
         LOG(beautify(html, {}));
+        fs.writeFileSync('./' + index.substring(0, index.length - 4) + 'html', beautify(html, {}), 'utf-8');
+        
+        var less = '';
+
+        blocks.page = {
+            'css': 'page/page.less',
+            'js': 'page/page.js'
+        };
 
         // check files
         Object.keys(blocks).forEach(function (index) {
+            
             if (isFileExist('./blocks/' + blocks[index].css)) {
+                less += '@import "./blocks/' + blocks[index].css + '";\n';
                 console.log(FgGreen, blocks[index].css);
             } else {
                 console.log(FgRed, blocks[index].css);
@@ -165,6 +180,10 @@ process.argv.forEach(function (index) {
                 console.log(FgRed, blocks[index].js);
             }
         });
+        
+        if (less) {
+            fs.writeFileSync('./' + index.substring(0, index.length - 4) + 'less', less, 'utf-8');
+        }
 
         console.log('\x1b[0m');
     }

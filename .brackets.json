@@ -4,7 +4,7 @@
     "spaceUnits": 4,
     "styleActiveLine": true,
     "themes.theme": "dark-theme",
-    "linting.collapsed": false,
+    "linting.collapsed": true,
     "mikaeljorhult.bracketsAutoprefixer.enabled": false,
     "useTabChar": false,
     "sortDirectoriesFirst": true,
