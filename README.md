@@ -8,8 +8,8 @@ $ sudo npm i
 #### BUILD
 
 ```
-$ cd compile
-$ node compile
+$ node compile/compile.js pages/home.json
+$ grunt
 ```
 
 #### LOCAL SERVER
@@ -18,4 +18,6 @@ $ node compile
 $ node start
 ```
 
-http://localhost:8000/pages
+[http://localhost:8000/pages/home.html](http://localhost:8000/pages/home.html)
+
+
