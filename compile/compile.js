@@ -151,13 +151,11 @@ process.argv.forEach(function (index) {
         html += '    </head>\n';
         html += '    <body>\n';
         readContent(pageJSON.content);
-        html += '    </body>\n';
-        html += '</html>';
 
-        LOG(beautify(html, {}));
-        fs.writeFileSync('./' + index.substring(0, index.length - 4) + 'html', beautify(html, {}), 'utf-8');
+
         
         var less = '';
+        var js = '';
 
         blocks.page = {
             'css': 'page/page.less',
@@ -175,6 +173,7 @@ process.argv.forEach(function (index) {
             }
 
             if (isFileExist('./blocks/' + blocks[index].js)) {
+                js += '<script src="../blocks/' + blocks[index].js + '"></script>';
                 console.log(FgGreen, blocks[index].js);
             } else {
                 console.log(FgRed, blocks[index].js);
@@ -184,6 +183,15 @@ process.argv.forEach(function (index) {
         if (less) {
             fs.writeFileSync('./' + index.substring(0, index.length - 4) + 'less', less, 'utf-8');
         }
+
+        if (js) {
+            html += js;
+        }
+
+        html += '    </body>\n';
+        html += '</html>';
+        LOG(beautify(html, {}));
+        fs.writeFileSync('./' + index.substring(0, index.length - 4) + 'html', beautify(html, {}), 'utf-8');
 
         console.log('\x1b[0m');
     }

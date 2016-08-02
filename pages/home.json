@@ -101,13 +101,13 @@
                     "tag": "i"
                 },
                 {
-                    "elem": "slide",
+                    "block": "slide",
                     "mods": {
                         "empty": true
                     }
                 },
                 {
-                    "elem": "slide",
+                    "block": "slide",
                     "content": [
                         {
                             "block": "caption",
@@ -149,6 +149,38 @@
                                     },
                                     "text": "LEARN MORE",
                                     "tag": "a"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "block": "slide",
+                    "content": [
+                        {
+                            "block": "caption",
+                            "content": [
+                                {
+                                    "elem": "slogan",
+                                    "text": "Our Luck Is Our Second Priority"
+                                },
+                                {
+                                    "elem": "text",
+                                    "text": "DO YOUR BEST",
+                                    "tag": false
+                                },
+                                {
+                                    "elem": "decor",
+                                    "html": "<i></i>"
+                                }
+                            ]
+                        },
+                        {
+                            "block": "note",
+                            "content": [
+                                {
+                                    "elem": "text",
+                                    "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
                                 }
                             ]
                         }
