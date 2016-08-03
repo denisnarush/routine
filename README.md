@@ -11,11 +11,10 @@ $ sudo npm i
 $ node compile/compile.js pages/home.json
 $ grunt
 ```
-
 #### LOCAL SERVER
 
 ```
-$ node start
+$ npm start
 ```
 
 [http://localhost:8000/pages/home.html](http://localhost:8000/pages/home.html)
