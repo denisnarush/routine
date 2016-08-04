@@ -5,7 +5,22 @@ module.exports = function (grunt) {
     grunt.initConfig({
 
         less: {
-            dev: {files: {'pages/home.css': 'pages/home.less'}}
+            'dev': {files: {'pages/home.css': 'pages/home.less'}}
+        },
+
+        cssmin: {
+            'dev': {
+                options: {
+                    restructuring: false
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'pages',
+                    src: ['*.css', '!*.min.css'],
+                    dest: 'pages',
+                    ext: '.min.css'
+                }]
+            }
         },
 
         watch: {
@@ -13,9 +28,9 @@ module.exports = function (grunt) {
                 files: ['images/*.svg'],
                 tasks: ['svgmin']
             },
-            'blocks': {
-                files: ['blocks/**/*.less'],
-                tasks: ['less']
+            'dev': {
+                files: ['blocks/**/*.less', 'blocks.theme/**/*.less'],
+                tasks: ['less:dev', 'cssmin:dev']
             }
         },
         
@@ -46,9 +61,10 @@ module.exports = function (grunt) {
     });
 
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-svgmin');
 
-    grunt.registerTask('default', ['less']);
+    grunt.registerTask('default', ['less:dev', 'cssmin:dev']);
     grunt.registerTask('svg', ['svgmin']);
 };
