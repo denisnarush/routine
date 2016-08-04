@@ -11,9 +11,18 @@
   max-width: 1170px;
   z-index: 1;
 }
-.header__logo {
-  flex: 0 1 auto;
-  margin: 40px 0 0 0;
+.header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  max-width: 1170px;
+  z-index: 1;
 }
 .header__logo {
   border: 3px solid #f4f5f9;
@@ -26,6 +35,8 @@
   padding: 0 10px 0 0;
   position: relative;
   left: -2px;
+  flex: 0 1 auto;
+  margin: 40px 0 0 0;
 }
 .header__logo b {
   background: white;
