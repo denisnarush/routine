@@ -57,6 +57,19 @@ function checkTagParam(tag) {
     }
 }
 
+function isPairOfTag(tag) {
+    'use strict';
+
+    if (tag === 'img' ||
+            tag === 'input' ||
+            tag === 'hr' ||
+            tag === 'br') {
+        return false;
+    } else {
+        return true;
+    }
+}
+
 function readContent(content, block) {
     'use strict';
 
@@ -126,7 +139,9 @@ function readContent(content, block) {
 
         // close tag
         if (tag) {
-            html += '</' + tag + '>\n';
+            if (isPairOfTag(tag)) {
+                html += '</' + tag + '>\n';
+            }
         }
     });
 }
@@ -143,11 +158,20 @@ process.argv.forEach(function (index) {
         html += '<html lang="en">\n';
         html += '    <head>\n';
         html += '        <title>' + pageJSON.title + '</title>\n';
+
         pageJSON.head.forEach(function (index) {
-            if (index.elem === 'css') {
+            switch (index.elem) {
+            case 'css':
                 html += "<link href='" + index.url + "' rel='stylesheet' type='text/css'>\n";
+                break;
+            case 'js':
+                html += "<script src='" + index.url + "' type='text/javascript'></script>\n";
+                break;
+            default:
+                break;
             }
         });
+
         html += '    </head>\n';
         html += '    <body>\n';
         readContent(pageJSON.content);
