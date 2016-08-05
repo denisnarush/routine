@@ -1,5 +1,5 @@
 /*
- v1.1.0;
+ v1.1.1;
 */
 
 /*global require, console, process*/
@@ -14,7 +14,7 @@ var FgGreen = "\x1b[32m ";
 function LOG() {
     'use strict';
 
-    //    console.log.apply(this, arguments);
+//        console.log.apply(this, arguments);
 }
 
 console.log(new Date());
@@ -191,16 +191,23 @@ process.argv.forEach(function (index) {
             
             if (isFileExist('./blocks/' + blocks[index].css)) {
                 less += '@import "./blocks/' + blocks[index].css + '";\n';
-                console.log(FgGreen, blocks[index].css);
+                console.log(FgGreen, './blocks/' + blocks[index].css);
             } else {
-                console.log(FgRed, blocks[index].css);
+                console.log(FgRed, './blocks/' + blocks[index].css);
+            }
+
+            if (isFileExist('./blocks.theme/' + blocks[index].css)) {
+                less += '@import "./blocks.theme/' + blocks[index].css + '";\n';
+                LOG(FgGreen, './blocks.theme/' + blocks[index].css);
+            } else {
+                LOG(FgRed, './blocks.theme/' + blocks[index].css);
             }
 
             if (isFileExist('./blocks/' + blocks[index].js)) {
                 js += '<script src="../blocks/' + blocks[index].js + '"></script>';
-                console.log(FgGreen, blocks[index].js);
+                console.log(FgGreen, './blocks/' + blocks[index].js);
             } else {
-                console.log(FgRed, blocks[index].js);
+                console.log(FgRed, './blocks/' + blocks[index].js);
             }
         });
         
@@ -214,9 +221,10 @@ process.argv.forEach(function (index) {
 
         html += '    </body>\n';
         html += '</html>';
-        LOG(beautify(html, {}));
         fs.writeFileSync('./' + index.substring(0, index.length - 4) + 'html', beautify(html, {}), 'utf-8');
 
         console.log('\x1b[0m');
+
+        LOG(beautify(html, {}));
     }
 });
