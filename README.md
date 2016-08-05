@@ -20,19 +20,19 @@ $ npm start
 ```
 // main folder for all components
 blocks/
-  ↳ header/      - header block folder
+  ↳ header/      - header block
     header.less
     header.js
 
-    ↳ __logo/      - header logo element folder
+    ↳ __logo/      - header logo element
       header__logo.less
       header__logo.js
 
-      ↳ _right/      - header logo element modifier folder
+      ↳ _right/      - header logo element modifier
         header__logo_right.less
         header__logo_right.js
 
-    ↳ _inverse/      - header block modifier folder
+    ↳ _inverse/      - header block modifier
       header_inverse.less
       header_inverse.js
 
