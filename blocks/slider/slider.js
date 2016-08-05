@@ -93,6 +93,9 @@
     }
 
     function handler(e) {
+        if (e.target.classList.contains('slider__arrow')) {
+            e.stopPropagation();
+        }
         if (e.target.classList.contains('slider__arrow_left')) {
             left(e.target.parentElement);
         }

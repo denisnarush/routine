@@ -6,13 +6,10 @@
 $ sudo npm i
 ```
 #### BUILD
-
 ```
 $ node compile/compile.js pages/home.json
-$ grunt
 ```
 #### LOCAL SERVER
-
 ```
 $ npm start
 ```
