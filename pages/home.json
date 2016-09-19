@@ -192,6 +192,34 @@
                     "tag": "a"
                 }
             ]
+        },
+        {
+            "block": "section",
+            "content": [
+                {
+                    "block": "badge",
+                    "tag": "a",
+                    "attrs": {
+                        "href": "#"
+                    },
+                    "content": [
+                        {
+                            "elem": "icon",
+                            "mods": {
+                                "heart": true
+                            }
+                        },
+                        {
+                            "elem": "caption",
+                            "text": "SLEEK DESIGN"
+                        },
+                        {
+                            "elem": "text",
+                            "text": "Lorem Ipsum is simply dummy text of the printing and typesetting let. Lorem Ipsum has been the industry."
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }

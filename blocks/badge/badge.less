@@ -1,0 +1,25 @@
+.badge{
+    color: #999999;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 20px;
+    
+    &:hover{
+        .badge__icon{
+            border-color: #e74c3c;
+            transform: rotate(45deg);
+            transform-origin: center;
+
+            &:before {
+                transform: rotate(-45deg);
+                transform-origin: center;
+            }
+        }
+        
+        .badge__caption{
+            color: #e74c3c;
+        }
+    }
+}

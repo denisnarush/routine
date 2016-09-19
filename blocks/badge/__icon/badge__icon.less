@@ -1,0 +1,28 @@
+.badge__icon{
+    box-sizing: border-box;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 2px;
+    border-color: rgba(153, 153, 153, 0.25);
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+
+    transition-property: border-color, transform;
+    transition-duration: .5s;
+    width: 73px;
+    height: 73px;
+
+    &:before{
+        position: absolute;
+        content: '';
+        display: inline-block;
+        vertical-align: middle;
+        background-position: center center;
+        background-repeat: no-repeat;
+        left: 50%;
+        top: 50%;
+        transition-property: transform;
+        transition-duration: .5s;
+    }
+}
