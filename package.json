@@ -9,6 +9,7 @@
     "url": "https://github.com/denisnarush/routine.git"
   },
   "devDependencies": {
+    "benchmark": "^2.1.1",
     "grunt": "^1.0.1",
     "grunt-contrib-cssmin": "^1.0.1",
     "grunt-contrib-less": "^1.3.0",
@@ -18,6 +19,7 @@
     "js-beautify": "^1.6.3"
   },
   "scripts": {
+    "benchmark": "node benchmark/index.js",
     "dev": "grunt watch",
     "build": "grunt",
     "start": "grunt && http-server -p 8000 -a localhost -o"
