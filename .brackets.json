@@ -7,5 +7,5 @@
             "linting.usePreferredOnly": true
         }
     },
-    "linting.JSHint.collapsed": false
+    "linting.JSHint.collapsed": true
 }

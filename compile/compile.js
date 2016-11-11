@@ -1,26 +1,96 @@
-/*
- v1.1.1;
-*/
-
+/*jshint esnext: true*/
 /*global require, console, process*/
-var fs = require('fs');
-var beautify = require('js-beautify').html;
-var html = '';
-var blocks = {};
 
-var FgRed = "\x1b[31m ";
-var FgGreen = "\x1b[32m ";
-
-function LOG() {
+(function () {
     'use strict';
 
+    const fs = require('fs');
+    const beautify = require('js-beautify').html;
+    const FgRed = "\x1b[31m ";
+    const FgGreen = "\x1b[32m ";
+
+
+    function Compiler () {
+        this.HTML = "";
+        this.BLOCKS = {};
+    }
+
+    /**
+     * Checks whether a file exists by specified path
+     * @param   {string} path Path to file
+     * @returns {boolean}  Result
+     */
+    Compiler.prototype.isFileExist = function (path) {
+        try {
+            fs.lstatSync(path).isFile();
+            return true;
+        } catch (error) {
+            return false;
+        }
+    };
+
+
+    /**
+     * Reads file and return JSON representation of it
+     * @param   {string}   path Path to file
+     * @returns {object} JSON representation
+     */
+    Compiler.prototype.readAsJSON = function (path) {
+        try {
+            return JSON.parse(fs.readFileSync(path, "utf8"));
+        } catch (error) {
+            return null;
+        }
+    };
+
+    /**
+     * Reads `tag` parametr and return string representation of it 
+     * @param   {string|boolean} tag = "div" Tag parametr
+     * @returns {string} String representation
+     */
+    Compiler.prototype.checkTagParametr = function () {
+        var tag = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "div";
+
+        return (typeof tag === "string" || typeof tag === "boolean" ? tag : false);
+    };
+
+    /**
+     * Checks if tag is self-closing
+     * @param   {string} tag Tag parametr
+     * @returns {boolean} Result
+     */
+    Compiler.prototype.isTagSelfClosing = function (tag) {
+        switch (tag) {
+            case 'input':
+            case 'img':
+            case 'hr':
+            case 'br':
+                return true;
+            default:
+                return false;
+        }
+    };
+
+
+
+
+
+
+
+
+
+
+let html = "";
+let blocks = {};
+
+function LOG() {
 //        console.log.apply(this, arguments);
 }
 
 console.log(new Date());
 
 function isFileExist(filePath) {
-    'use strict';
+
 
     try {
         fs.lstatSync(filePath).isFile();
@@ -30,8 +100,9 @@ function isFileExist(filePath) {
     }
 
 }
+
 function readAsJSON(filePath) {
-    'use strict';
+
 
     try {
         return JSON.parse(fs.readFileSync(filePath, 'utf8'));
@@ -42,8 +113,6 @@ function readAsJSON(filePath) {
 }
 
 function checkTagParam(tag) {
-    'use strict';
-
     if (tag === undefined) {
         return 'div';
     }
@@ -58,8 +127,6 @@ function checkTagParam(tag) {
 }
 
 function isPairOfTag(tag) {
-    'use strict';
-
     if (tag === 'img' ||
             tag === 'input' ||
             tag === 'hr' ||
@@ -71,7 +138,7 @@ function isPairOfTag(tag) {
 }
 
 function readContent(content, block) {
-    'use strict';
+
 
     if (!content) {
         return;
@@ -147,7 +214,7 @@ function readContent(content, block) {
 }
 
 process.argv.forEach(function (index) {
-    'use strict';
+
 
     if (index.indexOf('.json') === index.length - 5) {
         var pageJSON = readAsJSON('./' + index);
@@ -182,13 +249,30 @@ process.argv.forEach(function (index) {
         var js = '';
 
         blocks.page = {
-            'css': 'page/page.less',
-            'js': 'page/page.js'
+            'css': index.replace('.json', '')+'.css',
+            'js': index.replace('.json', '')+'.js'
         };
 
         // check files
         Object.keys(blocks).forEach(function (index) {
+            if (index == 'page') {
+                return;
+            }
             
+            if (isFileExist('./' + blocks[index].css)) {
+                less += '@import "./' + blocks[index].css + '";\n';
+                console.log(FgGreen, './' + blocks[index].css);
+            } else {
+                console.log(FgRed, './' + blocks[index].css);
+            }
+
+            if (isFileExist('./' + blocks[index].js)) {
+                js += '<script src="../' + blocks[index].js + '"></script>';
+                console.log(FgGreen, './' + blocks[index].js);
+            } else {
+                console.log(FgRed, './' + blocks[index].js);
+            }
+
             if (isFileExist('./blocks/' + blocks[index].css)) {
                 less += '@import "./blocks/' + blocks[index].css + '";\n';
                 console.log(FgGreen, './blocks/' + blocks[index].css);
@@ -196,18 +280,18 @@ process.argv.forEach(function (index) {
                 console.log(FgRed, './blocks/' + blocks[index].css);
             }
 
-            if (isFileExist('./blocks.theme/' + blocks[index].css)) {
-                less += '@import "./blocks.theme/' + blocks[index].css + '";\n';
-                LOG(FgGreen, './blocks.theme/' + blocks[index].css);
-            } else {
-                LOG(FgRed, './blocks.theme/' + blocks[index].css);
-            }
-
             if (isFileExist('./blocks/' + blocks[index].js)) {
                 js += '<script src="../blocks/' + blocks[index].js + '"></script>';
                 console.log(FgGreen, './blocks/' + blocks[index].js);
             } else {
                 console.log(FgRed, './blocks/' + blocks[index].js);
+            }
+
+            if (isFileExist('./blocks.theme/' + blocks[index].css)) {
+                less += '@import "./blocks.theme/' + blocks[index].css + '";\n';
+                LOG(FgGreen, './blocks.theme/' + blocks[index].css);
+            } else {
+                LOG(FgRed, './blocks.theme/' + blocks[index].css);
             }
         });
         
@@ -228,3 +312,5 @@ process.argv.forEach(function (index) {
         LOG(beautify(html, {}));
     }
 });
+
+}());
