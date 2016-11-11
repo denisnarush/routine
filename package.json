@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "homepage": "https://github.com/denisnarush/routine",
   "author": "Denis Narush <me@denisnarush.com>",
-  "description": "BMW",
+  "description": "HTML compiler",
   "repository": {
     "type": "git",
     "url": "https://github.com/denisnarush/routine.git"

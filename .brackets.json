@@ -1,14 +1,11 @@
 {
-    "fonts.fontSize": "12px",
-    "fonts.fontFamily": "'SourceCodePro-Medium', 'MS Gothic', monospace",
-    "spaceUnits": 4,
-    "styleActiveLine": true,
-    "themes.theme": "dark-theme",
-    "linting.collapsed": true,
-    "mikaeljorhult.bracketsAutoprefixer.enabled": false,
-    "useTabChar": false,
-    "sortDirectoriesFirst": true,
-    "jslint.options": {
-        "vars": true
-    }
+    "language": {
+        "javascript": {
+            "linting.prefer": [
+                "JSHint"
+            ],
+            "linting.usePreferredOnly": true
+        }
+    },
+    "linting.JSHint.collapsed": true
 }
