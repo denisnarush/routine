@@ -8,10 +8,11 @@ $ sudo npm i
 #### BUILD
 ```
 $ node compile/compile.js pages/home.json
+$ npm run build
 ```
 #### LOCAL SERVER
 ```
-$ npm start
+$ npm run start
 ```
 
 [http://localhost:8000/pages/home.html](http://localhost:8000/pages/home.html)
