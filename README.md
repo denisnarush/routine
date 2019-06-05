@@ -3,7 +3,7 @@
 
 #### INSTALL
 ```
-$ sudo npm i
+$ npm i
 ```
 #### BUILD
 ```
